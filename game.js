@@ -1,9 +1,3 @@
-// import './js/libs/weapp-adapter'
-// import './js/libs/symbol'
-
-// import Main from './js/main'
-
-// new Main()
 
 console.log("aaa");
 const canvas = wx.createCanvas();
@@ -314,6 +308,193 @@ left.onload = function () {
   context.drawImage(left, leftX, leftY)
 }
 left.src = 'assets/left.png'
+
+function onTouch3(touchX, touchY) {
+  if (touchX >= rightX && touchX <= rightX + 33 && touchY >= rightY && touchY <= rightY + 25) {
+    shouldMove = true;
+    direction = 'right';
+  }
+  if (touchX >= leftX && touchX <= leftX + 33 && touchY >= leftY && touchY <= leftY + 25) {
+    shouldMove = true;
+    direction = 'left';
+  }
+  if (touchX >= upX && touchX <= upX + 25 && touchY >= upY && touchY <= upY + 33) {
+    shouldMove = true;
+    direction = 'up';
+  }
+  if (touchX >= downX && touchX <= downX + 25 && touchY >= downY && touchY <= downY + 33) {
+    shouldMove = true;
+    direction = 'down';
+  }
+  if (shouldMove) {
+    context.clearRect(imgX, imgY, 25, 50);
+    context.fillStyle = 'white'
+    context.fillRect(imgX, imgY, 25, 50);
+    // if ((!isInKey2(imgX, imgY)) && nearKey2(imgX, imgY) && keyExists) {
+    //   drawKey2(canvas, context);
+    // } 
+    if (isNearDoor2(imgX, imgY) && keyExists) {
+      drawDoor2(canvas, context);
+    }
+    if (direction == 'right') {
+      imgX += step;
+      if (imgX >= (rect1W - 25)) {
+        imgX = rect1W - 25;
+      }
+      var dis = Math.sqrt((imgX + 25 - cycle4X) * (imgX + 25 - cycle4X) + (imgY + 50 - cycle4Y) * (imgY + 50 - cycle4Y));
+      while (dis <= cycle2R) {
+        imgX--;
+        dis = Math.sqrt((imgX + 25 - cycle4X) * (imgX + 25 - cycle4X) + (imgY + 50 - cycle4Y) * (imgY + 50 - cycle4Y));
+      }
+      var dis2 = Math.sqrt((imgX + 25 - cycle5X) * (imgX + 25 - cycle5X) + (imgY + 50 - cycle5Y) * (imgY + 50 - cycle5Y));
+      while (dis2 <= cycle3R) {
+        imgX--;
+        dis2 = Math.sqrt((imgX + 25 - cycle5X) * (imgX + 25 - cycle5X) + (imgY + 50 - cycle5Y) * (imgY + 50 - cycle5Y));
+      }
+      var dis3 = Math.sqrt((imgX + 25 - cycle5X) * (imgX + 25 - cycle5X) + (imgY - cycle5Y) * (imgY - cycle5Y));
+      while (dis3 <= cycle3R) {
+        imgX--;
+        dis3 = Math.sqrt((imgX + 25 - cycle5X) * (imgX + 25 - cycle5X) + (imgY - cycle5Y) * (imgY - cycle5Y));
+      }
+      var dis4 = Math.sqrt((imgX + 25 - cycle6X) * (imgX + 25 - cycle6X) + (imgY + 50 - cycle6Y) * (imgY + 50 - cycle6Y));
+      while (dis4 <= cycle3R) {
+        imgX--;
+        dis4 = Math.sqrt((imgX + 25 - cycle6X) * (imgX + 25 - cycle6X) + (imgY + 50 - cycle6Y) * (imgY + 50 - cycle6Y));
+      }
+      var dis5 = Math.sqrt((imgX + 25 - cycle6X) * (imgX + 25 - cycle6X) + (imgY - cycle6Y) * (imgY - cycle6Y));
+      while (dis5 <= cycle3R) {
+        imgX--;
+        dis5 = Math.sqrt((imgX + 25 - cycle6X) * (imgX + 25 - cycle6X) + (imgY - cycle6Y) * (imgY - cycle6Y));
+      }
+      if ((imgY < cycle5Y) && (imgY + 50 > cycle5Y) && (imgX + 25 + cycle3R > cycle5X) && (imgX < cycle5X)) {
+        console.log(11111)
+        imgX = cycle5X - cycle3R - 26;
+      }
+    }
+    if (direction == 'left') {
+      imgX -= step;
+      if (imgX <= rect1X) {
+        imgX = rect1X;
+      }
+      var dis = Math.sqrt((imgX - cycle3X) * (imgX - cycle3X) + (imgY + 50 - cycle4Y) * (imgY + 50 - cycle3Y));
+      while (dis <= cycle2R) {
+        imgX++
+        dis = Math.sqrt((imgX - cycle3X) * (imgX - cycle3X) + (imgY + 50 - cycle3Y) * (imgY + 50 - cycle3Y));
+      }
+      var dis2 = Math.sqrt((imgX - cycle5X) * (imgX - cycle5X) + (imgY + 50 - cycle5Y) * (imgY + 50 - cycle5Y));
+      while (dis2 <= cycle3R) {
+        imgX++;
+        dis2 = Math.sqrt((imgX - cycle5X) * (imgX - cycle5X) + (imgY + 50 - cycle5Y) * (imgY + 50 - cycle5Y));
+      }
+      var dis3 = Math.sqrt((imgX - cycle5X) * (imgX - cycle5X) + (imgY - cycle5Y) * (imgY - cycle5Y));
+      while (dis3 <= cycle3R) {
+        imgX++;
+        dis3 = Math.sqrt((imgX - cycle5X) * (imgX - cycle5X) + (imgY - cycle5Y) * (imgY - cycle5Y));
+      }
+      var dis4 = Math.sqrt((imgX - cycle6X) * (imgX - cycle6X) + (imgY + 50 - cycle6Y) * (imgY + 50 - cycle6Y));
+      while (dis4 <= cycle3R) {
+        imgX++;
+        dis4 = Math.sqrt((imgX - cycle6X) * (imgX - cycle6X) + (imgY + 50 - cycle6Y) * (imgY + 50 - cycle6Y));
+      }
+      var dis5 = Math.sqrt((imgX - cycle6X) * (imgX - cycle6X) + (imgY - cycle6Y) * (imgY - cycle6Y));
+      while (dis5 <= cycle3R) {
+        imgX++;
+        dis5 = Math.sqrt((imgX - cycle6X) * (imgX - cycle6X) + (imgY - cycle6Y) * (imgY - cycle6Y));
+      }
+    }
+    if (direction == 'up') {
+      imgY -= step;
+      if (imgY <= rect1Y) {
+        imgY = rect1Y;
+      }
+      var dis = Math.sqrt((imgX - cycle5X) * (imgX - cycle5X) + (imgY - cycle5Y) * (imgY - cycle5Y));
+      while (dis <= cycle3R) {
+        imgY++
+        dis = Math.sqrt((imgX - cycle5X) * (imgX - cycle5X) + (imgY - cycle5Y) * (imgY - cycle5Y));
+      }
+      var dis2 = Math.sqrt((imgX + 25 - cycle5X) * (imgX + 25 - cycle5X) + (imgY - cycle5Y) * (imgY - cycle5Y));
+      while (dis2 <= cycle3R) {
+        imgY++
+        dis2 = Math.sqrt((imgX + 25 - cycle5X) * (imgX + 25 - cycle5X) + (imgY - cycle5Y) * (imgY - cycle5Y));
+      }
+      var dis3 = Math.sqrt((imgX - cycle6X) * (imgX - cycle6X) + (imgY - cycle6Y) * (imgY - cycle6Y));
+      while (dis3 <= cycle3R) {
+        imgY++
+        dis3 = Math.sqrt((imgX - cycle6X) * (imgX - cycle6X) + (imgY - cycle6Y) * (imgY - cycle6Y));
+      }
+      var dis4 = Math.sqrt((imgX + 25 - cycle6X) * (imgX + 25 - cycle6X) + (imgY - cycle6Y) * (imgY - cycle6Y));
+      while (dis4 <= cycle3R) {
+        imgY++
+        dis4 = Math.sqrt((imgX + 25 - cycle6X) * (imgX + 25 - cycle6X) + (imgY - cycle6Y) * (imgY - cycle6Y));
+      }
+    }
+    if (direction == 'down') {
+      imgY += step;
+      if (imgY <= rect1Y) {
+        imgY = rect1Y;
+      }
+      var dis = Math.sqrt((imgX - cycle5X) * (imgX - cycle5X) + (imgY + 50 - cycle5Y) * (imgY + 50 - cycle5Y));
+      while (dis <= cycle3R) {
+        imgY--
+        dis = Math.sqrt((imgX - cycle5X) * (imgX - cycle5X) + (imgY + 50 - cycle5Y) * (imgY + 50 - cycle5Y));
+      }
+      var dis2 = Math.sqrt((imgX + 25 - cycle5X) * (imgX + 25 - cycle5X) + (imgY + 50 - cycle5Y) * (imgY + 50 - cycle5Y));
+      while (dis2 <= cycle3R) {
+        imgY--
+        dis2 = Math.sqrt((imgX + 25 - cycle5X) * (imgX + 25 - cycle5X) + (imgY + 50 - cycle5Y) * (imgY + 50 - cycle5Y));
+      }
+      var dis3 = Math.sqrt((imgX - cycle6X) * (imgX - cycle6X) + (imgY + 50 - cycle6Y) * (imgY + 50 - cycle6Y));
+      while (dis3 <= cycle3R) {
+        imgY--
+        dis3 = Math.sqrt((imgX - cycle6X) * (imgX - cycle6X) + (imgY + 50 - cycle6Y) * (imgY + 50 - cycle6Y));
+      }
+      var dis4 = Math.sqrt((imgX + 25 - cycle6X) * (imgX + 25 - cycle6X) + (imgY + 50 - cycle6Y) * (imgY + 50 - cycle6Y));
+      while (dis4 <= cycle3R) {
+        imgY--
+        dis4 = Math.sqrt((imgX + 25 - cycle6X) * (imgX + 25 - cycle6X) + (imgY + 50 - cycle6Y) * (imgY + 50 - cycle6Y));
+      }
+      var dis5 = Math.sqrt((imgX - cycle3X) * (imgX - cycle3X) + (imgY + 50 - cycle3Y) * (imgY + 50 - cycle3Y));
+      while (dis5 <= cycle2R) {
+        imgY--
+        dis5 = Math.sqrt((imgX - cycle3X) * (imgX - cycle3X) + (imgY + 50 - cycle3Y) * (imgY + 50 - cycle3Y));
+      }
+      var dis6 = Math.sqrt((imgX + 25 - cycle4X) * (imgX + 25 - cycle4X) + (imgY + 50 - cycle4Y) * (imgY + 50 - cycle4Y));
+      while (dis6 <= cycle2R) {
+        imgY--
+        dis6 = Math.sqrt((imgX + 25 - cycle4X) * (imgX + 25 - cycle4X) + (imgY + 50 - cycle4Y) * (imgY + 50 - cycle4Y));
+      }
+    }
+    if (isInKey2(imgX, imgY) && keyExists) {
+      context.fillStyle = 'white'
+      context.fillRect(key2X, key2Y, 48, 29);
+      drawCycle5(context);
+      drawCycle6(context);
+      keyExists = false;
+      console.log("inkey")
+    } else {
+      if (nearKey2(imgX, imgY) && keyExists) {
+        drawKey2(canvas, context);
+        console.log("nearKey")
+      }
+    }
+    if (isInDoor2(imgX, imgY) && (!keyExists)) {
+      scene = 3;
+      context.fillStyle = 'white'
+      context.fillRect(door2X + 21, door2Y, 26, 96);
+      imgX = door2X + 21;
+      imgY = door2Y
+      setTimeout(function () {
+        drawScene3();
+      }, 1000)
+      return;
+    } else {
+      if (isNearDoor2(imgX, imgY)) {
+        drawDoor2(canvas, context)
+      }
+    }
+    context.drawImage(image, imgX, imgY);
+  }
+}
 
 function onTouch2(touchX, touchY) {
   if (touchX >= rightX && touchX <= rightX + 33 && touchY >= rightY && touchY <= rightY + 25) {
@@ -628,37 +809,37 @@ function onTouch1(touchX, touchY) {
     }
     context.drawImage(image, imgX, imgY);
   }
-  function drawScene2(){
-    context.clearRect(rect1X, rect1Y - 2, rect1W, rect1H + 4);
-    drawRect(context)
-    drawCycle3(context)
-    drawCycle4(context)
-    drawCycle5(context)
-    drawCycle6(context)
-    drawDoor2(canvas, context)
-    drawKey2(canvas, context)
-    keyExists = true;
-    var image2 = wx.createImage()
-    imgX = canvas.width / 2 - 12.5
-    imgY = originImgY
-    image2.onload = function () {
-      context.drawImage(image, imgX, imgY)
-    }
-    image2.src = 'assets/peep.png'
+}
+function drawScene2() {
+  context.clearRect(rect1X, rect1Y - 2, rect1W, rect1H + 4);
+  drawRect(context)
+  drawCycle3(context)
+  drawCycle4(context)
+  drawCycle5(context)
+  drawCycle6(context)
+  drawDoor2(canvas, context)
+  drawKey2(canvas, context)
+  keyExists = true;
+  var image2 = wx.createImage()
+  imgX = canvas.width / 2 - 12.5
+  imgY = originImgY
+  image2.onload = function () {
+    context.drawImage(image, imgX, imgY)
   }
-  function drawScene3() {
-    context.clearRect(rect1X, rect1Y - 2, rect1W, rect1H + 4);
-    drawRect(context)
-    drawCycle7(context)
-    drawDoor3(canvas, context)
-    drawKey1(canvas, context)
-    keyExists = true;
-    var image2 = wx.createImage()
-    imgX = rect1X +10
-    imgY = rect1Y + 10
-    image2.onload = function () {
-      context.drawImage(image, imgX, imgY)
-    }
-    image2.src = 'assets/peep.png'
+  image2.src = 'assets/peep.png'
+}
+function drawScene3() {
+  context.clearRect(rect1X, rect1Y - 2, rect1W, rect1H + 4);
+  drawRect(context)
+  drawCycle7(context)
+  drawDoor3(canvas, context)
+  drawKey1(canvas, context)
+  keyExists = true;
+  var image2 = wx.createImage()
+  imgX = rect1X + 10
+  imgY = rect1Y + 10
+  image2.onload = function () {
+    context.drawImage(image, imgX, imgY)
   }
+  image2.src = 'assets/peep.png'
 }
